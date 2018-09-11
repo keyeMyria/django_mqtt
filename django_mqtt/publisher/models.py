@@ -241,8 +241,8 @@ class Data(models.Model):
 
         :var datetime : Datetime of last change
     """
-    client = models.ForeignKey(Client, on_delete=models.CASCADE )
-    topic = models.ForeignKey(Topic, on_delete=models.CASCADE )
+    client = models.ForeignKey(Client, on_delete=models.CASCADE)
+    topic = models.ForeignKey(Topic, on_delete=models.CASCADE)
     qos = models.IntegerField(choices=PROTO_MQTT_QoS, default=0)
     payload = models.TextField(blank=True, null=True)
     retain = models.BooleanField(default=False)

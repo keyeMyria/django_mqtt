@@ -186,7 +186,7 @@ class Client(models.Model):
         If False, the client is a persistent client and subscription information and queued messages will be retained
         when the client disconnects.
     """
-    server = models.ForeignKey(Server)
+    server = models.ForeignKey(Server, on_delete=models.CASCADE)
     auth = models.ForeignKey(Auth, on_delete=models.CASCADE, blank=True, null=True)
     client_id = models.ForeignKey(ClientId, on_delete=models.CASCADE, null=True, blank=True)
 

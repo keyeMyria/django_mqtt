@@ -143,7 +143,7 @@ class Server(models.Model):
     """
     host = models.CharField(max_length=1024)
     port = models.IntegerField(default=1883)
-    secure = models.ForeignKey(SecureConf, null=True, blank=True)
+    secure = models.ForeignKey(SecureConf, on_delete=models.CASCADE, null=True, blank=True)
     protocol = models.IntegerField(choices=PROTO_MQTT_VERSION, default=mqtt.MQTTv311)
     status = models.IntegerField(choices=PROTO_MQTT_CONN_STATUS, default=PROTO_MQTT_CONN_ERROR_UNKNOWN)
 
@@ -187,8 +187,8 @@ class Client(models.Model):
         when the client disconnects.
     """
     server = models.ForeignKey(Server)
-    auth = models.ForeignKey(Auth, blank=True, null=True)
-    client_id = models.ForeignKey(ClientId, null=True, blank=True)
+    auth = models.ForeignKey(Auth, on_delete=models.CASCADE, blank=True, null=True)
+    client_id = models.ForeignKey(ClientId, on_delete=models.CASCADE, null=True, blank=True)
 
     keepalive = models.IntegerField(default=60)
     clean_session = models.BooleanField(default=True)
@@ -241,8 +241,8 @@ class Data(models.Model):
 
         :var datetime : Datetime of last change
     """
-    client = models.ForeignKey(Client)
-    topic = models.ForeignKey(Topic)
+    client = models.ForeignKey(Client, on_delete=models.CASCADE )
+    topic = models.ForeignKey(Topic, on_delete=models.CASCADE )
     qos = models.IntegerField(choices=PROTO_MQTT_QoS, default=0)
     payload = models.TextField(blank=True, null=True)
     retain = models.BooleanField(default=False)
